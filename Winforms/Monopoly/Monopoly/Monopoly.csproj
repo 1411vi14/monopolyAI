@@ -61,9 +61,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\Wichtige Klassen\Invoker_.cs">
-      <Link>Invoker_.cs</Link>
-    </Compile>
     <Compile Include="Cell.cs" />
     <Compile Include="Card.cs" />
     <Compile Include="Controller.cs" />
@@ -84,6 +81,7 @@
     </Compile>
     <Compile Include="Game.cs" />
     <Compile Include="GameBoard.cs" />
+    <Compile Include="Invoker_.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
