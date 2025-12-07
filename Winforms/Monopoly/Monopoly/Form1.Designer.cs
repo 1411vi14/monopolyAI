@@ -34,13 +34,16 @@
             this.buttonAutoRun = new System.Windows.Forms.Button();
             this.checkBoxWatching = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 12);
+            this.dataGridView1.Location = new System.Drawing.Point(31, 111);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(588, 128);
             this.dataGridView1.TabIndex = 0;
@@ -65,7 +68,7 @@
             // 
             // buttonAutoRun
             // 
-            this.buttonAutoRun.Location = new System.Drawing.Point(538, 218);
+            this.buttonAutoRun.Location = new System.Drawing.Point(221, 293);
             this.buttonAutoRun.Name = "buttonAutoRun";
             this.buttonAutoRun.Size = new System.Drawing.Size(121, 23);
             this.buttonAutoRun.TabIndex = 3;
@@ -76,7 +79,7 @@
             // checkBoxWatching
             // 
             this.checkBoxWatching.AutoSize = true;
-            this.checkBoxWatching.Location = new System.Drawing.Point(451, 222);
+            this.checkBoxWatching.Location = new System.Drawing.Point(333, 322);
             this.checkBoxWatching.Name = "checkBoxWatching";
             this.checkBoxWatching.Size = new System.Drawing.Size(72, 17);
             this.checkBoxWatching.TabIndex = 4;
@@ -93,6 +96,23 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.settingsToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(800, 24);
+            this.menuStrip1.TabIndex = 6;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // settingsToolStripMenuItem
+            // 
+            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.settingsToolStripMenuItem.Text = "Settings";
+            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -104,10 +124,14 @@
             this.Controls.Add(this.buttonNextStep);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Monopoly";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -121,6 +145,8 @@
         private System.Windows.Forms.Button buttonAutoRun;
         private System.Windows.Forms.CheckBox checkBoxWatching;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
     }
 }
 

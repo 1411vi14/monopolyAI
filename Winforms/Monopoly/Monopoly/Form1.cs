@@ -59,5 +59,10 @@ namespace Monopoly
             FormHistory formHistory = new FormHistory(_controller.Game);
             formHistory.ShowDialog();
         }
+
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

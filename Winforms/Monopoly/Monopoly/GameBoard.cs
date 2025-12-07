@@ -5,7 +5,7 @@ namespace Monopoly
 {
     public class GameBoard
     {
-        public static string Error { get; private set; } = "";
+        public string Error { get; private set; } = "";
         public List<EventCard> EventCards { get; private set; } = new List<EventCard>();
         public List<CommunityCard> CommunityCards { get; private set; } = new List<CommunityCard>();
         public List<StreetCard> AvailableStreetCars { get; private set; } = new List<StreetCard>();
@@ -38,13 +38,12 @@ namespace Monopoly
 
                 board.AvailableStreetCars = availableStreetCars;
                 board.Cells = cells;
+                return board;
             }
             catch (Exception ex)
             {
-                Error = ex.Message;
-                return null;
+                throw new Exception(ex.Message);
             }
-            return board;
         }
 
         private static string GetStreetsData()

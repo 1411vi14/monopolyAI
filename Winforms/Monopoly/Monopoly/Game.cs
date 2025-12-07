@@ -1,35 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 
 namespace Monopoly
 {
     public class Game
     {
-        public static string Error { get; private set; } = "";
+        public string Error { get; private set; } = "";
         public enum Stati { Standby, Running, Finished }
         public Stati Status { get; private set; } = Stati.Standby;
         private Random Random { get; set; } = new Random();
         public List<Player> Players { get; private set; } = new List<Player>();
         public Player CurrentPlayer { get; private set; }
         public GameBoard GameBoard { get; private set; }
+        public Setting Setting { get; private set; }
         public List<StepHistoryEntry> History { get; private set; } = new List<StepHistoryEntry>();
         private StepHistoryEntry CurrentStepHistoryEntry { get; set; }
 
         public static Game TryCreateGame()
         {
-            GameBoard gameBoard = GameBoard.TryCreateGameBoard();
-            if (gameBoard == null)
-            {
-                Error = GameBoard.Error;
-                return null;
-            }
-
-            Game game = new Game();
-            game.GameBoard = gameBoard;
-            game.Restart();
-            return game;
+                GameBoard gameBoard = GameBoard.TryCreateGameBoard();
+                Setting setting = new Setting();
+                Game game = new Game();
+                game.GameBoard = gameBoard;
+                game.Restart();
+                return game;
         }
 
         public List<string[]> GetPlayersData()

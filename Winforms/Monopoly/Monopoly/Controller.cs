@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Monopoly
@@ -12,10 +13,14 @@ namespace Monopoly
 
         public Controller()
         {
-            Game game = Game.TryCreateGame();
-            if (game == null)
+            Game game = null;
+            try
             {
-                Viewer.ShowError(Game.Error);
+                game = Game.TryCreateGame();
+            }
+            catch (Exception ex)
+            {
+                Viewer.ShowError(ex.Message);
                 return;
             }
 
