@@ -1,6 +1,3 @@
-# This workflow will build a .NET project
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
-
 name: .NET
 
 on:
@@ -11,18 +8,33 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v4
+
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 10.0.x
+
+    # --- NuGet Cache ---
+    - name: Cache NuGet packages
+      uses: actions/cache@v4
+      with:
+        path: ~/.nuget/packages
+        key: ${{ runner.os }}-nuget-${{ hashFiles('Winforms/Monopoly/**/*.csproj') }}
+        restore-keys: |
+          ${{ runner.os }}-nuget-
+
+    # --- Restore ---
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore ./Winforms/Monopoly/Monopoly.slnx
+
+    # --- Build ---
     - name: Build
-      run: dotnet build --no-restore -c Release
+      run: dotnet build ./Winforms/Monopoly/Monopoly.slnx --no-restore -c Release
+
+    # --- Test ---
     - name: Test
-      run: dotnet test --no-build --verbosity normal -c Release
+      run: dotnet test ./Winforms/Monopoly/Monopoly.slnx --no-build --verbosity normal -c Release
