@@ -1,6 +1,8 @@
 ﻿using Invoker_;
 using System;
 using System.Linq;
+using System.Numerics;
+using System.Windows.Forms;
 
 namespace Monopoly
 {
@@ -18,27 +20,50 @@ namespace Monopoly
             Invoker.invokeTextSet(Form, error);
         }
 
-        public static void UpdateView(Game game)
+        public static void UpdateDataTable(Game game)
+        {
+            var countBuyedStreets = 0;
+            var dataGrid = Form.GetDataGridView();
+
+			for (int rowIndex = 0; rowIndex < game.Players.Count; rowIndex++)
+            {
+                Player player = game.Players[rowIndex];
+				countBuyedStreets += player.StreetCards.Count;
+
+				Invoker.invokeUpdateRow(dataGrid, rowIndex, player);
+            }
+
+            if (dataGrid.Rows.Count < game.Players.Count + 1)
+            {
+                Invoker.invokeAddRow(dataGrid);
+            }
+			Invoker.invokeUpdateLastRow(dataGrid, countBuyedStreets);
+		}
+
+        public static void ClearDataTable()
+        {
+            var dataGrid = Form.GetDataGridView();
+            Invoker.invokeClearRows(dataGrid);
+        }
+
+		public static void UpdateView(Game game)
         {
             //         panel1.BackgroundImage = Image.FromFile
             //(System.Environment.GetFolderPath
             //(System.Environment.SpecialFolder.Personal)
             //+ @"\Image.gif");
+            UpdateDataTable(game);
 
-            Invoker.invokeClearRows(Form.GetDataGridView());
+            var buttonText = game.Status switch
+            {
+                Game.Stati.Standby => "Start autorun",
+                Game.Stati.Running => "Stop autorun",
+                Game.Stati.Finished => "Reset Game",
+                _ => "Unknown State"
+            };
+			Invoker.invokeTextSet(Form.ButtonAutoRun, buttonText);
 
-            if (game.GetPlayersData().Count < 1)
-                return;
-
-            foreach (string[] data in game.GetPlayersData())
-                Invoker.invokeAddRow(Form.GetDataGridView(), data);
-
-            string[] lastRow = game.GetPlayersData().First().Select(i => "").ToArray();
-            lastRow[lastRow.Length - 1] = game.GetPlayersData().Sum(i => Convert.ToInt32(i[lastRow.Length - 1])).ToString();
-            Invoker.invokeAddRow(Form.GetDataGridView(), lastRow);
-            Invoker.Resize(Form.GetDataGridView());
-
-            string lastEvent = game.History.Count > 0 ? (game.History.Count + ". step\n" + game.History.Last().ToString()) : "";
+			string lastEvent = game.History.Count > 0 ? (game.History.Count + ". step\n" + game.History.Last().ToString()) : "";
             Invoker.invokeTextSet(Form.GetRichTextBox(), lastEvent);
         }
     }

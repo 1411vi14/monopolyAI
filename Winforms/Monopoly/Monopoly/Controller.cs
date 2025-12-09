@@ -6,17 +6,14 @@ namespace Monopoly
 {
     public class Controller
     {
-        public enum Stati { IsRunning, IsStandby}
         public Game Game { get;private set; }
-        public Stati Status { get; private set; } = Stati.IsStandby;
         private bool HasToStop { get; set; } = false;
 
         public Controller(Setting setting)
         {
-            Game game = null;
             try
             {
-                game = new Game(setting);
+				Game = new Game(setting);
             }
             catch (Exception ex)
             {
@@ -24,37 +21,36 @@ namespace Monopoly
                 return;
             }
 
-            Game = game;
+            Viewer.ClearDataTable();
             Viewer.UpdateView(Game);
         }
 
         public bool NextStep()
         {
-            Status = Stati.IsRunning;
+			Game.Status = Game.Stati.Running;
             if (!Game.NextStep())
             {
                 Viewer.ShowError(Game.Error);
-                Status = Stati.IsStandby;
+				Game.Status = Game.Stati.Standby;
                 return false;
             }
 
             Viewer.UpdateView(Game);
-            Status = Stati.IsStandby;
+			Game.Status = Game.Stati.Standby;
             return true;
         }
 
         public bool StartAutoRun(bool watching)
         {
-            if (HasToStop)
+            if (Game.Status is not Game.Stati.Standby)
                 return false;
-
-            Task.Run(() => TaskAutoRun(watching));
+			Game.Status = Game.Stati.Running;
+			Task.Run(() => TaskAutoRun(watching));
             return true;
         }
 
         private Task TaskAutoRun(bool watching)
         {
-            Status = Stati.IsRunning;
             HasToStop = false;
             while (Game.Status != Game.Stati.Finished && !HasToStop)
             {
@@ -69,14 +65,14 @@ namespace Monopoly
             }
 
             Viewer.UpdateView(Game);
-            Status = Stati.IsStandby;
             return Task.CompletedTask;
         }
 
         public bool StopAutoRun()
         {
             HasToStop = true;
-            return true;
+			Game.Status = Game.Stati.Standby;
+			return true;
         }
 
     }
