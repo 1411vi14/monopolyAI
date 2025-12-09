@@ -22,7 +22,7 @@ namespace Monopoly
 
         private void FormHistory_Load(object sender, EventArgs e)
         {
-            _game.History.ForEach(i => richTextBox1.Text += "\n" + i.ToString());
+			richTextBox1.Text = string.Join(Environment.NewLine, _game.History.TakeLast(50).Select(i => i.ToString()));
         }
     }
 }

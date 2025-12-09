@@ -28,112 +28,120 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.buttonNextStep = new System.Windows.Forms.Button();
-            this.buttonAutoRun = new System.Windows.Forms.Button();
-            this.checkBoxWatching = new System.Windows.Forms.CheckBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            this.menuStrip1.SuspendLayout();
-            this.SuspendLayout();
+            dataGridView1 = new System.Windows.Forms.DataGridView();
+            richTextBox1 = new System.Windows.Forms.RichTextBox();
+            buttonNextStep = new System.Windows.Forms.Button();
+            buttonAutoRun = new System.Windows.Forms.Button();
+            checkBoxWatching = new System.Windows.Forms.CheckBox();
+            button1 = new System.Windows.Forms.Button();
+            menuStrip1 = new System.Windows.Forms.MenuStrip();
+            settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            menuStrip1.SuspendLayout();
+            SuspendLayout();
             // 
             // dataGridView1
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(31, 111);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(588, 128);
-            this.dataGridView1.TabIndex = 0;
+            dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Location = new System.Drawing.Point(36, 128);
+            dataGridView1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.Size = new System.Drawing.Size(686, 148);
+            dataGridView1.TabIndex = 0;
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(575, 295);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(213, 143);
-            this.richTextBox1.TabIndex = 1;
-            this.richTextBox1.Text = "";
+            richTextBox1.Location = new System.Drawing.Point(671, 340);
+            richTextBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            richTextBox1.Name = "richTextBox1";
+            richTextBox1.Size = new System.Drawing.Size(248, 164);
+            richTextBox1.TabIndex = 1;
+            richTextBox1.Text = "";
             // 
             // buttonNextStep
             // 
-            this.buttonNextStep.Location = new System.Drawing.Point(694, 218);
-            this.buttonNextStep.Name = "buttonNextStep";
-            this.buttonNextStep.Size = new System.Drawing.Size(75, 23);
-            this.buttonNextStep.TabIndex = 2;
-            this.buttonNextStep.Text = "Next Step";
-            this.buttonNextStep.UseVisualStyleBackColor = true;
-            this.buttonNextStep.Click += new System.EventHandler(this.button1_Click);
+            buttonNextStep.Location = new System.Drawing.Point(810, 252);
+            buttonNextStep.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            buttonNextStep.Name = "buttonNextStep";
+            buttonNextStep.Size = new System.Drawing.Size(88, 27);
+            buttonNextStep.TabIndex = 2;
+            buttonNextStep.Text = "Next Step";
+            buttonNextStep.UseVisualStyleBackColor = true;
+            buttonNextStep.Click += buttonNextStep_Click;
             // 
             // buttonAutoRun
             // 
-            this.buttonAutoRun.Location = new System.Drawing.Point(157, 295);
-            this.buttonAutoRun.Name = "buttonAutoRun";
-            this.buttonAutoRun.Size = new System.Drawing.Size(121, 23);
-            this.buttonAutoRun.TabIndex = 3;
-            this.buttonAutoRun.Text = "Start autorun";
-            this.buttonAutoRun.UseVisualStyleBackColor = true;
-            this.buttonAutoRun.Click += new System.EventHandler(this.button2_Click);
+            buttonAutoRun.Location = new System.Drawing.Point(183, 340);
+            buttonAutoRun.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            buttonAutoRun.Name = "buttonAutoRun";
+            buttonAutoRun.Size = new System.Drawing.Size(141, 27);
+            buttonAutoRun.TabIndex = 3;
+            buttonAutoRun.Text = "Start autorun";
+            buttonAutoRun.UseVisualStyleBackColor = true;
+            buttonAutoRun.Click += buttonAutoRun_Click;
             // 
             // checkBoxWatching
             // 
-            this.checkBoxWatching.AutoSize = true;
-            this.checkBoxWatching.Location = new System.Drawing.Point(333, 322);
-            this.checkBoxWatching.Name = "checkBoxWatching";
-            this.checkBoxWatching.Size = new System.Drawing.Size(72, 17);
-            this.checkBoxWatching.TabIndex = 4;
-            this.checkBoxWatching.Text = "Watching";
-            this.checkBoxWatching.UseVisualStyleBackColor = true;
+            checkBoxWatching.AutoSize = true;
+            checkBoxWatching.Location = new System.Drawing.Point(388, 372);
+            checkBoxWatching.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            checkBoxWatching.Name = "checkBoxWatching";
+            checkBoxWatching.Size = new System.Drawing.Size(77, 19);
+            checkBoxWatching.TabIndex = 4;
+            checkBoxWatching.Text = "Watching";
+            checkBoxWatching.UseVisualStyleBackColor = true;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(439, 415);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(130, 23);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "Show History";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            button1.Location = new System.Drawing.Point(512, 479);
+            button1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            button1.Name = "button1";
+            button1.Size = new System.Drawing.Size(152, 27);
+            button1.TabIndex = 5;
+            button1.Text = "Show History";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click_1;
             // 
             // menuStrip1
             // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.settingsToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(800, 24);
-            this.menuStrip1.TabIndex = 6;
-            this.menuStrip1.Text = "menuStrip1";
+            menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { settingsToolStripMenuItem });
+            menuStrip1.Location = new System.Drawing.Point(0, 0);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
+            menuStrip1.Size = new System.Drawing.Size(933, 24);
+            menuStrip1.TabIndex = 6;
+            menuStrip1.Text = "menuStrip1";
             // 
             // settingsToolStripMenuItem
             // 
-            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
-            this.settingsToolStripMenuItem.Text = "Settings";
-            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
+            settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            settingsToolStripMenuItem.Text = "Settings";
+            settingsToolStripMenuItem.Click += settingsToolStripMenuItem_Click;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.checkBoxWatching);
-            this.Controls.Add(this.buttonAutoRun);
-            this.Controls.Add(this.buttonNextStep);
-            this.Controls.Add(this.richTextBox1);
-            this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.menuStrip1);
-            this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Form1";
-            this.Text = "Monopoly";
-            this.Load += new System.EventHandler(this.Form1_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            ClientSize = new System.Drawing.Size(933, 519);
+            Controls.Add(button1);
+            Controls.Add(checkBoxWatching);
+            Controls.Add(buttonAutoRun);
+            Controls.Add(buttonNextStep);
+            Controls.Add(richTextBox1);
+            Controls.Add(dataGridView1);
+            Controls.Add(menuStrip1);
+            MainMenuStrip = menuStrip1;
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            Name = "Form1";
+            Text = "Monopoly";
+            Load += Form1_Load;
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
+            ResumeLayout(false);
+            PerformLayout();
 
         }
 

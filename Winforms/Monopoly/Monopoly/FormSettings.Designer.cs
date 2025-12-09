@@ -28,66 +28,73 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.SuspendLayout();
+            label1 = new System.Windows.Forms.Label();
+            textBoxNumberPlayer = new System.Windows.Forms.TextBox();
+            buttonCancel = new System.Windows.Forms.Button();
+            ButtonAccept = new System.Windows.Forms.Button();
+            SuspendLayout();
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 22);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(131, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Number of players (2-200):";
+            label1.AutoSize = true;
+            label1.Location = new System.Drawing.Point(14, 25);
+            label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(148, 15);
+            label1.TabIndex = 1;
+            label1.Text = "Number of players (2-200):";
             // 
-            // textBox1
+            // textBoxNumberPlayer
             // 
-            this.textBox1.Location = new System.Drawing.Point(149, 19);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(85, 20);
-            this.textBox1.TabIndex = 2;
+            textBoxNumberPlayer.Location = new System.Drawing.Point(174, 22);
+            textBoxNumberPlayer.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            textBoxNumberPlayer.Name = "textBoxNumberPlayer";
+            textBoxNumberPlayer.Size = new System.Drawing.Size(98, 23);
+            textBoxNumberPlayer.TabIndex = 2;
             // 
-            // button1
+            // buttonCancel
             // 
-            this.button1.Location = new System.Drawing.Point(159, 98);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Cancel";
-            this.button1.UseVisualStyleBackColor = true;
+            buttonCancel.Location = new System.Drawing.Point(186, 113);
+            buttonCancel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            buttonCancel.Name = "buttonCancel";
+            buttonCancel.Size = new System.Drawing.Size(88, 27);
+            buttonCancel.TabIndex = 3;
+            buttonCancel.Text = "Cancel";
+            buttonCancel.UseVisualStyleBackColor = true;
+            buttonCancel.Click += buttonCancel_Click;
             // 
-            // button2
+            // ButtonAccept
             // 
-            this.button2.Location = new System.Drawing.Point(241, 98);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 4;
-            this.button2.Text = "Accept";
-            this.button2.UseVisualStyleBackColor = true;
+            ButtonAccept.Location = new System.Drawing.Point(281, 113);
+            ButtonAccept.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            ButtonAccept.Name = "ButtonAccept";
+            ButtonAccept.Size = new System.Drawing.Size(88, 27);
+            ButtonAccept.TabIndex = 4;
+            ButtonAccept.Text = "Accept";
+            ButtonAccept.UseVisualStyleBackColor = true;
+            ButtonAccept.Click += buttonAccept_Click;
             // 
             // FormSettings
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(328, 133);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.label1);
-            this.Name = "FormSettings";
-            this.Text = "FormSettings";
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            ClientSize = new System.Drawing.Size(383, 153);
+            Controls.Add(ButtonAccept);
+            Controls.Add(buttonCancel);
+            Controls.Add(this.textBoxNumberPlayer);
+            Controls.Add(label1);
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            Name = "FormSettings";
+            Text = "FormSettings";
+            ResumeLayout(false);
+            PerformLayout();
 
         }
 
         #endregion
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.TextBox textBoxNumberPlayer;
+        private System.Windows.Forms.Button buttonCancel;
+        private System.Windows.Forms.Button ButtonAccept;
     }
 }

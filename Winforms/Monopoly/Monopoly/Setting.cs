@@ -1,14 +1,7 @@
 ﻿namespace Monopoly
 {
-    public class Setting
+    public record Setting
     {
-        public int NumberPlayers { get; private set; } = 2;
-
-        public Setting(int numberPlayers = 2) 
-        {
-
-        NumberPlayers = numberPlayers;
-
-        }
+        public required int NumberPlayers { get; init; } = 2;
     }
 }

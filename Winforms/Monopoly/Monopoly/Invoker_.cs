@@ -1,445 +1,476 @@
-﻿using System;
+﻿using Monopoly;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
 namespace Invoker_
 {
-    class Invoker
-    {
-        public static void invokeProgressBar(ProgressBar myobject, int value, int min, int max)
-        {
-            if (myobject.InvokeRequired)
+	class Invoker
+	{
+		public static void invokeProgressBar(ProgressBar myobject, int value, int min, int max)
+		{
+			if (myobject.InvokeRequired)
+			{
+				myobject.Invoke(() => myobject.Minimum = min);
+				myobject.Invoke(() => myobject.Maximum = max);
+				myobject.Invoke(() => myobject.Value = value);
+			}
+			else
+			{
+				myobject.Minimum = min;
+				myobject.Maximum = max;
+				myobject.Value = value;
+			}
+		}
+
+		public static void Resize(object myobject)
+		{
+			if (myobject is DataGridView dataGridView)
+			{
+				dataGridView.Invoke(delegate
+				{
+					for (int i = 0; i < dataGridView.Columns.Count; i++)
+						dataGridView.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+					/*
+					for (int i = 0; i < dataGridView.Columns.Count; i++)
+					{
+						int colw = dataGridView.Columns[i].Width;
+						dataGridView.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+						dataGridView.Columns[i].Width = colw;
+					}
+					*/
+				});
+			}
+		}
+
+		public static int invokeProgressBarGetMax(ProgressBar myobject)
+		{
+			int max = 0;
+			if (myobject.InvokeRequired)
+			{
+				myobject.Invoke(() => max = myobject.Maximum);
+			}
+			else
+			{
+				max = myobject.Maximum;
+			}
+			return max;
+		}
+
+		public static int invokeSelectedIndex(object myobject)
+		{
+			int index = -1;
+			if (myobject is ComboBox comboBox)
+			{
+				if (comboBox.InvokeRequired) comboBox.Invoke(() => index = comboBox.SelectedIndex);
+				else index = comboBox.SelectedIndex;
+			}
+
+			return index;
+		}
+
+		public static void invokeIcon(object myobject, Form form)
+		{
+			if (myobject is Icon icon)
+			{
+				form.Invoke(delegate
+				{
+					form.Icon = icon;
+				});
+			}
+		}
+
+		public static void invokeSetLocation(object myobject, Point location)
+		{
+			if (myobject is PictureBox pictureBox)
+			{
+				if (pictureBox.InvokeRequired) pictureBox.Invoke(() => pictureBox.Location = location);
+				else pictureBox.Location = location;
+			}
+		}
+
+		public static Point invokeGetLocation(object myobject)
+		{
+			Point location = new Point();
+
+			if (myobject is PictureBox pictureBox)
+			{
+				if (pictureBox.InvokeRequired) pictureBox.Invoke(() => location = pictureBox.Location);
+				else location = pictureBox.Location;
+			}
+
+			return location;
+		}
+
+		public static void invokeSelect(object myobject, int index)
+		{
+			if (myobject is TreeView treeView)
+			{
+				if (treeView.InvokeRequired) treeView.Invoke(() => treeView.SelectedNode = treeView.Nodes[0]);
+				else treeView.SelectedNode = treeView.Nodes[0];
+			}
+		}
+
+		public static void invokeProgressBarValue(ProgressBar myobject, int value)
+		{
+			if (myobject.InvokeRequired)
+			{
+				myobject.Invoke(() => myobject.Value = value);
+			}
+			else
+			{
+				myobject.Value = value;
+			}
+		}
+
+		public static void invokeVisible(object myobject, bool visible)
+		{
+            switch (myobject)
             {
-                myobject.Invoke((MethodInvoker)(() => myobject.Minimum = min));
-                myobject.Invoke((MethodInvoker)(() => myobject.Maximum = max));
-                myobject.Invoke((MethodInvoker)(() => myobject.Value = value));
-            }
-            else
-            {
-                myobject.Minimum = min;
-                myobject.Maximum = max;
-                myobject.Value = value;
+                case Label label:
+                    if (label.InvokeRequired) label.Invoke(() => label.Visible = visible);
+                    else label.Visible = visible;
+                    break;
+                case PictureBox pictureBox:
+                    if (pictureBox.InvokeRequired) pictureBox.Invoke(() => pictureBox.Visible = visible);
+                    else pictureBox.Visible = visible;
+                    break;
+                case TextBox textBox:
+                    if (textBox.InvokeRequired) textBox.Invoke(() => textBox.Visible = visible);
+                    else textBox.Visible = visible;
+                    break;
+                case ProgressBar progressBar:
+                    if (progressBar.InvokeRequired) progressBar.Invoke(() => progressBar.Visible = visible);
+                    else progressBar.Visible = visible;
+                    break;
+                case GroupBox groupBox:
+                    if (groupBox.InvokeRequired) groupBox.Invoke(() => groupBox.Visible = visible);
+                    else groupBox.Visible = visible;
+                    break;
             }
         }
 
-        public static void Resize(object myobject)
-        {
-            if (myobject is DataGridView dataGridView)
+		public static void invokeChecked(object myobject, bool isChecked)
+		{
+			if (myobject is CheckBox checkBox)
+			{
+				if (checkBox.InvokeRequired) checkBox.Invoke(() => checkBox.Checked = isChecked);
+				else checkBox.Checked = isChecked;
+			}
+		}
+
+		public static bool invokeIsChecked(object myobject)
+		{
+			bool isChecked = false;
+			if (myobject is CheckBox checkBox)
+			{
+				if (checkBox.InvokeRequired) checkBox.Invoke(() => isChecked = checkBox.Checked);
+				else isChecked = checkBox.Checked;
+			}
+			return isChecked;
+		}
+
+
+		public static void invokeNodeAdd(object myobject, string text)
+		{
+            switch (myobject)
             {
-                dataGridView.Invoke((MethodInvoker)delegate
-                {
-                    for (int i = 0; i < dataGridView.Columns.Count; i++)
-                        dataGridView.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                    for (int i = 0; i < dataGridView.Columns.Count; i++)
-                    {
-                        int colw = dataGridView.Columns[i].Width;
-                        dataGridView.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-                        dataGridView.Columns[i].Width = colw;
-                    }
-                });
+                case TreeNode treeNode:
+                    if (treeNode.TreeView.InvokeRequired) treeNode.TreeView.Invoke(() => treeNode.Nodes.Add(text));
+                    else treeNode.Nodes.Add(text);
+                    break;
+                case TreeView treeView:
+                    if (treeView.InvokeRequired) treeView.Invoke(() => treeView.Nodes.Add(text));
+                    else treeView.Nodes.Add(text);
+                    break;
             }
         }
 
-        public static int invokeProgressBarGetMax(ProgressBar myobject)
-        {
-            int max = 0;
-            if (myobject.InvokeRequired)
+		public static void invokeItemsAdd(object myobject, string text)
+		{
+            switch (myobject)
             {
-                myobject.Invoke((MethodInvoker)(() => max = myobject.Maximum));
-            }
-            else
-            {
-                max = myobject.Maximum;
-            }
-            return max;
-        }
-
-        public static int invokeSelectedIndex(object myobject)
-        {
-            int index = -1;
-            if (myobject is ComboBox)
-            {
-                if (((ComboBox)myobject).InvokeRequired) ((ComboBox)myobject).Invoke((MethodInvoker)(() => index = ((ComboBox)myobject).SelectedIndex));
-                else index = ((ComboBox)myobject).SelectedIndex;
-            }
-
-            return index;
-        }
-
-        public static void invokeIcon(object myobject, Form form)
-        {
-            if (myobject is Icon)
-            {
-                form.Invoke((MethodInvoker)delegate
-                {
-                    form.Icon = (Icon)myobject;
-                });
+                case ListBox listBox:
+                    if (listBox.InvokeRequired) listBox.Invoke(() => listBox.Items.Add(text));
+                    else listBox.Items.Add(text);
+                    break;
+                case ComboBox comboBox:
+                    if (comboBox.InvokeRequired) comboBox.Invoke(() => comboBox.Items.Add(text));
+                    else comboBox.Items.Add(text);
+                    break;
             }
         }
 
-        public static void invokeSetLocation(object myobject, Point location)
-        {
-            if (myobject is PictureBox)
+		public static void invokeItemsRemoveAt(object myobject, int at)
+		{
+			if (myobject is ListBox listBox)
+			{
+				if (listBox.InvokeRequired) listBox.Invoke(() => listBox.Items.RemoveAt(at));
+				else listBox.Items.RemoveAt(at);
+			}
+		}
+		public static int invokeItemsCount(object myobject)
+		{
+			int count = -1;
+            switch (myobject)
             {
-                if (((PictureBox)myobject).InvokeRequired) ((PictureBox)myobject).Invoke((MethodInvoker)(() => ((PictureBox)myobject).Location = location));
-                else ((PictureBox)myobject).Location = location;
-            }
-        }
-
-        public static Point invokeGetLocation(object myobject)
-        {
-            Point location = new Point();
-
-            if (myobject is PictureBox)
-            {
-                if (((PictureBox)myobject).InvokeRequired) ((PictureBox)myobject).Invoke((MethodInvoker)(() => location = ((PictureBox)myobject).Location));
-                else location = ((PictureBox)myobject).Location;
-            }
-
-            return location;
-        }
-
-        public static void invokeSelect(object myobject, int index)
-        {
-            if (myobject is TreeView)
-            {
-                if (((TreeView)myobject).InvokeRequired) ((TreeView)myobject).Invoke((MethodInvoker)(() => ((TreeView)myobject).SelectedNode = ((TreeView)myobject).Nodes[0]));
-                else ((TreeView)myobject).SelectedNode = ((TreeView)myobject).Nodes[0];
-            }
-        }
-
-        public static void invokeProgressBarValue(ProgressBar myobject, int value)
-        {
-            if (myobject.InvokeRequired)
-            {
-                myobject.Invoke((MethodInvoker)(() => myobject.Value = value));
-            }
-            else
-            {
-                myobject.Value = value;
-            }
-        }
-
-        public static void invokeVisible(object myobject, bool visible)
-        {
-            if (myobject is Label)
-            {
-                if (((Label)myobject).InvokeRequired) ((Label)myobject).Invoke((MethodInvoker)(() => ((Label)myobject).Visible = visible));
-                else ((Label)myobject).Visible = visible;
-            }
-            else if (myobject is PictureBox)
-            {
-                if (((PictureBox)myobject).InvokeRequired) ((PictureBox)myobject).Invoke((MethodInvoker)(() => ((PictureBox)myobject).Visible = visible));
-                else ((PictureBox)myobject).Visible = visible;
-            }
-            else if (myobject is TextBox)
-            {
-                if (((TextBox)myobject).InvokeRequired) ((TextBox)myobject).Invoke((MethodInvoker)(() => ((TextBox)myobject).Visible = visible));
-                else ((TextBox)myobject).Visible = visible;
-            }
-            else if (myobject is ProgressBar)
-            {
-                if (((ProgressBar)myobject).InvokeRequired) ((ProgressBar)myobject).Invoke((MethodInvoker)(() => ((ProgressBar)myobject).Visible = visible));
-                else ((ProgressBar)myobject).Visible = visible;
-            }
-            else if (myobject is GroupBox)
-            {
-                if (((GroupBox)myobject).InvokeRequired) ((GroupBox)myobject).Invoke((MethodInvoker)(() => ((GroupBox)myobject).Visible = visible));
-                else ((GroupBox)myobject).Visible = visible;
-            }
-        }
-
-        public static void invokeChecked(object myobject, bool isChecked)
-        {
-            if (myobject is CheckBox)
-            {
-                if (((CheckBox)myobject).InvokeRequired) ((CheckBox)myobject).Invoke((MethodInvoker)(() => ((CheckBox)myobject).Checked = isChecked));
-                else ((CheckBox)myobject).Checked = isChecked;
-            }
-        }
-
-        public static bool invokeIsChecked(object myobject)
-        {
-            bool isChecked = false;
-            if (myobject is CheckBox)
-            {
-                if (((CheckBox)myobject).InvokeRequired) ((CheckBox)myobject).Invoke((MethodInvoker)(() => isChecked = ((CheckBox)myobject).Checked));
-                else isChecked = ((CheckBox)myobject).Checked;
-            }
-            return isChecked;
-        }
-
-
-        public static void invokeNodeAdd(object myobject, string text)
-        {
-            if (myobject is TreeNode)
-            {
-                if (((TreeNode)myobject).TreeView.InvokeRequired) ((TreeNode)myobject).TreeView.Invoke((MethodInvoker)(() => ((TreeNode)myobject).Nodes.Add(text)));
-                else ((TreeNode)myobject).Nodes.Add(text);
-            }
-            else if (myobject is TreeView)
-            {
-                if (((TreeView)myobject).InvokeRequired) ((TreeView)myobject).Invoke((MethodInvoker)(() => ((TreeView)myobject).Nodes.Add(text)));
-                else ((TreeView)myobject).Nodes.Add(text);
-            }
-        }
-
-        public static void invokeItemsAdd(object myobject, string text)
-        {
-            if (myobject is ListBox)
-            {
-                if (((ListBox)myobject).InvokeRequired) ((ListBox)myobject).Invoke((MethodInvoker)(() => ((ListBox)myobject).Items.Add(text)));
-                else ((ListBox)myobject).Items.Add(text);
-            }
-            else if (myobject is ComboBox)
-            {
-                if (((ComboBox)myobject).InvokeRequired) ((ComboBox)myobject).Invoke((MethodInvoker)(() => ((ComboBox)myobject).Items.Add(text)));
-                else ((ComboBox)myobject).Items.Add(text);
-            }
-        }
-
-        public static void invokeItemsRemoveAt(object myobject, int at)
-        {
-            if (myobject is ListBox)
-            {
-                if (((ListBox)myobject).InvokeRequired) ((ListBox)myobject).Invoke((MethodInvoker)(() => ((ListBox)myobject).Items.RemoveAt(at)));
-                else ((ListBox)myobject).Items.RemoveAt(at);
-            }
-        }
-        public static int invokeItemsCount(object myobject)
-        {
-            int count = -1;
-            if (myobject is ListBox)
-            {
-                if (((ListBox)myobject).InvokeRequired) ((ListBox)myobject).Invoke((MethodInvoker)(() => count = ((ListBox)myobject).Items.Count));
-                else count = ((ListBox)myobject).Items.Count;
-            }
-            else if (myobject is ComboBox)
-            {
-                if (((ComboBox)myobject).InvokeRequired) ((ComboBox)myobject).Invoke((MethodInvoker)(() => count = ((ComboBox)myobject).Items.Count));
-                else count = ((ComboBox)myobject).Items.Count;
+                case ListBox listBox:
+                    if (listBox.InvokeRequired) listBox.Invoke(() => count = listBox.Items.Count);
+                    else count = listBox.Items.Count;
+                    break;
+                case ComboBox comboBox:
+                    if (comboBox.InvokeRequired) comboBox.Invoke(() => count = comboBox.Items.Count);
+                    else count = comboBox.Items.Count;
+                    break;
             }
             return count;
-        }
+		}
 
-        public static void invokeItemsClear(object myobject)
-        {
-            if (myobject is ListBox)
+		public static void invokeItemsClear(object myobject)
+		{
+            switch (myobject)
             {
-                if (((ListBox)myobject).InvokeRequired) ((ListBox)myobject).Invoke((MethodInvoker)(() => ((ListBox)myobject).Items.Clear()));
-                else ((ListBox)myobject).Items.Clear();
-            }
-            else if (myobject is ComboBox)
-            {
-                if (((ComboBox)myobject).InvokeRequired) ((ComboBox)myobject).Invoke((MethodInvoker)(() => ((ComboBox)myobject).Items.Clear()));
-                else ((ComboBox)myobject).Items.Clear();
-            }
-        }
-
-        public static void invokeEnable(object myobject, bool enable)
-        {
-            if (myobject is Label)
-            {
-                if (((Label)myobject).InvokeRequired) ((Label)myobject).Invoke((MethodInvoker)(() => ((Label)myobject).Enabled = enable));
-                else ((Label)myobject).Enabled = enable;
-            }
-            else if (myobject is TextBox)
-            {
-                if (((TextBox)myobject).InvokeRequired) ((TextBox)myobject).Invoke((MethodInvoker)(() => ((TextBox)myobject).Enabled = enable));
-                else ((TextBox)myobject).Enabled = enable;
-            }
-            else if (myobject is TabControl)
-            {
-                if (((TabControl)myobject).InvokeRequired) ((TabControl)myobject).Invoke((MethodInvoker)(() => ((TabControl)myobject).Enabled = enable));
-                else ((TabControl)myobject).Enabled = enable;
-            }
-            else if (myobject is PictureBox)
-            {
-                if (((PictureBox)myobject).InvokeRequired) ((PictureBox)myobject).Invoke((MethodInvoker)(() => ((PictureBox)myobject).Enabled = enable));
-                else ((PictureBox)myobject).Enabled = enable;
-            }
-            else if (myobject is GroupBox)
-            {
-                if (((GroupBox)myobject).InvokeRequired) ((GroupBox)myobject).Invoke((MethodInvoker)(() => ((GroupBox)myobject).Enabled = enable));
-                else ((GroupBox)myobject).Enabled = enable;
-            }
-            else if (myobject is Button)
-            {
-                if (((Button)myobject).InvokeRequired) ((Button)myobject).Invoke((MethodInvoker)(() => ((Button)myobject).Enabled = enable));
-                else ((Button)myobject).Enabled = enable;
-            }
-            else if (myobject is ToolStripMenuItem)
-            {
-                if (((ToolStripMenuItem)myobject).GetCurrentParent().InvokeRequired) ((ToolStripMenuItem)myobject).GetCurrentParent().Invoke((MethodInvoker)(() => ((ToolStripMenuItem)myobject).Enabled = enable));
-                else ((ToolStripMenuItem)myobject).Enabled = enable;
-            }
-            if (myobject is TreeView)
-            {
-                if (((TreeView)myobject).InvokeRequired) ((TreeView)myobject).Invoke((MethodInvoker)(() => ((TreeView)myobject).Enabled = enable));
-                else ((TreeView)myobject).Enabled = enable;
-            }
-            if (myobject is ComboBox)
-            {
-                if (((ComboBox)myobject).InvokeRequired) ((ComboBox)myobject).Invoke((MethodInvoker)(() => ((ComboBox)myobject).Enabled = enable));
-                else ((ComboBox)myobject).Enabled = enable;
-            }
-            if (myobject is RichTextBox)
-            {
-                if (((RichTextBox)myobject).InvokeRequired) ((RichTextBox)myobject).Invoke((MethodInvoker)(() => ((RichTextBox)myobject).Enabled = enable));
-                else ((RichTextBox)myobject).Enabled = enable;
-            }
-            if (myobject is CheckBox)
-            {
-                if (((CheckBox)myobject).InvokeRequired) ((CheckBox)myobject).Invoke((MethodInvoker)(() => ((CheckBox)myobject).Enabled = enable));
-                else ((CheckBox)myobject).Enabled = enable;
+                case ListBox listBox:
+                    if (listBox.InvokeRequired) listBox.Invoke(() => listBox.Items.Clear());
+                    else listBox.Items.Clear();
+                    break;
+                case ComboBox comboBox:
+                    if (comboBox.InvokeRequired) comboBox.Invoke(() => comboBox.Items.Clear());
+                    else comboBox.Items.Clear();
+                    break;
             }
         }
 
-        public static void invokeTextSet(object myobject, string text)
-        {
-            if (myobject is Label)
+		public static void invokeEnable(object myobject, bool enable)
+		{
+            switch (myobject)
             {
-                if (((Label)myobject).InvokeRequired) ((Label)myobject).Invoke((MethodInvoker)(() => ((Label)myobject).Text = text));
-                else ((Label)myobject).Text = text;
-            }
-            else if (myobject is TextBox)
-            {
-                if (((TextBox)myobject).InvokeRequired) ((TextBox)myobject).Invoke((MethodInvoker)(() => ((TextBox)myobject).Text = text));
-                else ((TextBox)myobject).Text = text;
-            }
-            else if (myobject is Button)
-            {
-                if (((Button)myobject).InvokeRequired) ((Button)myobject).Invoke((MethodInvoker)(() => ((Button)myobject).Text = text));
-                else ((Button)myobject).Text = text;
-            }
-            else if (myobject is RichTextBox)
-            {
-                if (((RichTextBox)myobject).InvokeRequired) ((RichTextBox)myobject).Invoke((MethodInvoker)(() => ((RichTextBox)myobject).Text = text));
-                else ((RichTextBox)myobject).Text = text;
-            }
-            else if (myobject is GroupBox)
-            {
-                if (((GroupBox)myobject).InvokeRequired) ((GroupBox)myobject).Invoke((MethodInvoker)(() => ((GroupBox)myobject).Text = text));
-                else ((GroupBox)myobject).Text = text;
-            }
-            else if (myobject is Form)
-            {
-                if (((Form)myobject).InvokeRequired) ((Form)myobject).Invoke((MethodInvoker)(() => ((Form)myobject).Text = text));
-                else ((Form)myobject).Text = text;
+                case Label label:
+                    if (label.InvokeRequired) label.Invoke(() => label.Enabled = enable);
+                    else label.Enabled = enable;
+                    break;
+                case TextBox textBox:
+                    if (textBox.InvokeRequired) textBox.Invoke(() => textBox.Enabled = enable);
+                    else textBox.Enabled = enable;
+                    break;
+                case TabControl tabControl:
+                    if (tabControl.InvokeRequired) tabControl.Invoke(() => tabControl.Enabled = enable);
+                    else tabControl.Enabled = enable;
+                    break;
+                case PictureBox pictureBox:
+                    if (pictureBox.InvokeRequired) pictureBox.Invoke(() => pictureBox.Enabled = enable);
+                    else pictureBox.Enabled = enable;
+                    break;
+                case GroupBox groupBox:
+                    if (groupBox.InvokeRequired) groupBox.Invoke(() => groupBox.Enabled = enable);
+                    else groupBox.Enabled = enable;
+                    break;
+                case Button button:
+                    if (button.InvokeRequired) button.Invoke(() => button.Enabled = enable);
+                    else button.Enabled = enable;
+                    break;
+                case ToolStripMenuItem toolStripMenu:
+                    if (toolStripMenu.GetCurrentParent().InvokeRequired) toolStripMenu.GetCurrentParent().Invoke(() => toolStripMenu.Enabled = enable);
+                    else toolStripMenu.Enabled = enable;
+                    break;
+                case TreeView treeView:
+                    if (treeView.InvokeRequired) treeView.Invoke(() => treeView.Enabled = enable);
+                    else treeView.Enabled = enable;
+                    break;
+                case ComboBox comboBox:
+                    if (comboBox.InvokeRequired) comboBox.Invoke(() => comboBox.Enabled = enable);
+                    else comboBox.Enabled = enable;
+                    break;
+                case RichTextBox richTextBox:
+                    if (richTextBox.InvokeRequired) richTextBox.Invoke(() => richTextBox.Enabled = enable);
+                    else richTextBox.Enabled = enable;
+                    break;
+                case CheckBox checkBox:
+                    if (checkBox.InvokeRequired) checkBox.Invoke(() => checkBox.Enabled = enable);
+                    else checkBox.Enabled = enable;
+                    break;
             }
         }
 
-        public static void invokeInvalidate(object myobject)
-        {
-            if (((Panel)myobject).InvokeRequired) ((Panel)myobject).Invoke((MethodInvoker)(() => ((Panel)myobject).Invalidate()));
-            else ((Panel)myobject).Invalidate();
+		public static void invokeTextSet(object myobject, string text)
+		{
+            switch (myobject)
+            {
+                case Label label:
+                    if (label.InvokeRequired) label.Invoke(() => label.Text = text);
+                    else label.Text = text;
+                    break;
+                case TextBox textBox:
+                    if (textBox.InvokeRequired) textBox.Invoke(() => textBox.Text = text);
+                    else textBox.Text = text;
+                    break;
+                case Button button:
+                    if (button.InvokeRequired) button.Invoke(() => button.Text = text);
+                    else button.Text = text;
+                    break;
+                case RichTextBox richTextBox:
+                    if (richTextBox.InvokeRequired) richTextBox.Invoke(() => richTextBox.Text = text);
+                    else richTextBox.Text = text;
+                    break;
+                case GroupBox groupBox:
+                    if (groupBox.InvokeRequired) groupBox.Invoke(() => groupBox.Text = text);
+                    else groupBox.Text = text;
+                    break;
+                case Form form:
+                    if (form.InvokeRequired) form.Invoke(() => form.Text = text);
+                    else form.Text = text;
+                    break;
+            }
         }
 
-        public static string invokeTextGet(object myobject)
-        {
-            string text = "";
-            if (myobject is Label)
+		public static void invokeInvalidate(Panel panel)
+		{
+			if (panel.InvokeRequired) panel.Invoke(() => panel.Invalidate());
+			else panel.Invalidate();
+		}
+
+		public static string invokeTextGet(object myobject)
+		{
+			string text = "";
+            switch (myobject)
             {
-                if (((Label)myobject).InvokeRequired) ((Label)myobject).Invoke((MethodInvoker)(() => text = ((Label)myobject).Text));
-                else text = ((Label)myobject).Text;
-            }
-            else if (myobject is TextBox)
-            {
-                if (((TextBox)myobject).InvokeRequired) ((TextBox)myobject).Invoke((MethodInvoker)(() => text = ((TextBox)myobject).Text));
-                else text = ((TextBox)myobject).Text;
-            }
-            else if (myobject is Button)
-            {
-                if (((Button)myobject).InvokeRequired) ((Button)myobject).Invoke((MethodInvoker)(() => text = ((Button)myobject).Text));
-                else text = ((Button)myobject).Text;
-            }
-            else if (myobject is RichTextBox)
-            {
-                if (((RichTextBox)myobject).InvokeRequired) ((RichTextBox)myobject).Invoke((MethodInvoker)(() => text = ((RichTextBox)myobject).Text));
-                else text = ((RichTextBox)myobject).Text;
-            }
-            else if (myobject is GroupBox)
-            {
-                if (((GroupBox)myobject).InvokeRequired) ((GroupBox)myobject).Invoke((MethodInvoker)(() => text = ((GroupBox)myobject).Text));
-                else text = ((GroupBox)myobject).Text;
-            }
-            else if (myobject is ComboBox)
-            {
-                if (((ComboBox)myobject).InvokeRequired) ((ComboBox)myobject).Invoke((MethodInvoker)(() => text = ((ComboBox)myobject).Text));
-                else text = ((ComboBox)myobject).Text;
+                case Label label:
+                    if (label.InvokeRequired) label.Invoke(() => text = label.Text);
+                    else text = label.Text;
+                    break;
+                case TextBox textBox:
+                    if (textBox.InvokeRequired) textBox.Invoke(() => text = textBox.Text);
+                    else text = textBox.Text;
+                    break;
+                case Button button:
+                    if (button.InvokeRequired) button.Invoke(() => text = button.Text);
+                    else text = button.Text;
+                    break;
+                case RichTextBox richTextBox:
+                    if (richTextBox.InvokeRequired) richTextBox.Invoke(() => text = richTextBox.Text);
+                    else text = richTextBox.Text;
+                    break;
+                case GroupBox groupBox:
+                    if (groupBox.InvokeRequired) groupBox.Invoke(() => text = groupBox.Text);
+                    else text = groupBox.Text;
+                    break;
+                case ComboBox comboBox:
+                    if (comboBox.InvokeRequired) comboBox.Invoke(() => text = comboBox.Text);
+                    else text = comboBox.Text;
+                    break;
             }
 
             return text;
-        }
+		}
 
-        public static void invokeClearColumns(object myobject)
-        {
-            if (myobject is DataGridView)
-            {
-                if (((DataGridView)myobject).InvokeRequired) ((DataGridView)myobject).Invoke((MethodInvoker)(() => ((DataGridView)myobject).Columns.Clear()));
-                else ((DataGridView)myobject).Columns.Clear();
-            }
-        }
-        public static void invokeClearRows(object myobject)
-        {
-            if (myobject is DataGridView)
-            {
-                if (((DataGridView)myobject).InvokeRequired) ((DataGridView)myobject).Invoke((MethodInvoker)(() => ((DataGridView)myobject).Rows.Clear()));
-                else ((DataGridView)myobject).Rows.Clear();
-            }
-        }
-
-        public static void invokeAutoResizeColumns(object myobject, DataGridViewAutoSizeColumnsMode mode)
-        {
-            if (myobject is DataGridView)
-            {
-                if (((DataGridView)myobject).InvokeRequired) ((DataGridView)myobject).Invoke((MethodInvoker)(() => ((DataGridView)myobject).AutoResizeColumns(mode)));
-                else ((DataGridView)myobject).AutoResizeColumns(mode);
-            }
-        }
-
-        public static void invokeAddRow(object myobject, string[] cells)
-        {
-            if (myobject is DataGridView)
-            {
-                if (((DataGridView)myobject).InvokeRequired) ((DataGridView)myobject).Invoke((MethodInvoker)(() => ((DataGridView)myobject).Rows.Add(cells)));
-                else ((DataGridView)myobject).Rows.Add(cells);
-            }
-        }
-
-        public static void invokeAddColumn(object myobject, string column, string headerText)
-        {
-            if (myobject is DataGridView)
-            {
-                if (((DataGridView)myobject).InvokeRequired) ((DataGridView)myobject).Invoke((MethodInvoker)(() => ((DataGridView)myobject).Columns.Add(column, headerText)));
-                else ((DataGridView)myobject).Columns.Add(column, headerText);
-            }
-        }
+		public static void invokeClearColumns(object myobject)
+		{
+			if (myobject is DataGridView dataGridView)
+			{
+				if (dataGridView.InvokeRequired) dataGridView.Invoke(() => dataGridView.Columns.Clear());
+				else dataGridView.Columns.Clear();
+			}
+		}
+		public static void invokeClearRows(object myobject)
+		{
+			if (myobject is DataGridView dataGridView)
+			{
+				if (dataGridView.InvokeRequired) dataGridView.Invoke(() => dataGridView.Rows.Clear());
+				else dataGridView.Rows.Clear();
+			}
+		}
+		public static void invokeAddRow(DataGridView dataGridView)
+		{
+			dataGridView.Invoke(() =>
+			{
+				dataGridView.Rows.Add(1);
+			});
+		}
 
 
-        public static void invokeAppendText(object myobject, string text)
-        {
-            if (myobject is Label)
+		public static void invokeUpdateRow(DataGridView dataGridView, int rowIndex, Player player)
+		{
+			dataGridView.Invoke(() =>
+				{
+					if (dataGridView.Rows.Count < rowIndex + 1)
+					{
+						dataGridView.Rows.Add(player.Name, player.Money, player.CurrentCell?.StreetCard.Name ?? "undefined", player.StreetCards.Count);
+					}
+					else
+					{
+						var row = dataGridView.Rows[rowIndex];
+						row.Cells[1].Value = player.Money;
+						row.Cells[2].Value = player.CurrentCell?.StreetCard.Name ?? "undefined";
+						row.Cells[3].Value = player.StreetCards.Count;
+					}
+				}
+			);
+		}
+
+		public static void invokeUpdateLastRow(DataGridView dataGridView, int countBuyedStreets)
+		{
+			dataGridView.Invoke(() =>
+				{
+					if (dataGridView.Rows.Count is 0)
+					{
+						return;
+					}
+					var row = dataGridView.Rows[dataGridView.Rows.Count - 1];
+					row.Cells[3].Value = countBuyedStreets;
+				}
+			);
+		}
+
+		public static void invokeAutoResizeColumns(object myobject, DataGridViewAutoSizeColumnsMode mode)
+		{
+			if (myobject is DataGridView dataGridView)
+			{
+				if (dataGridView.InvokeRequired) dataGridView.Invoke(() => dataGridView.AutoResizeColumns(mode));
+				else dataGridView.AutoResizeColumns(mode);
+			}
+		}
+
+		public static void invokeAddRow(object myobject, string[] cells)
+		{
+			if (myobject is DataGridView dataGridView)
+			{
+				if (dataGridView.InvokeRequired) dataGridView.Invoke(() => dataGridView.Rows.Add(cells));
+				else dataGridView.Rows.Add(cells);
+			}
+		}
+
+		public static void invokeAddColumn(object myobject, string column, string headerText)
+		{
+			if (myobject is DataGridView dataGridView)
+			{
+				if (dataGridView.InvokeRequired) dataGridView.Invoke(() => dataGridView.Columns.Add(column, headerText));
+				else dataGridView.Columns.Add(column, headerText);
+			}
+		}
+
+
+		public static void invokeAppendText(object myobject, string text)
+		{
+            switch (myobject)
             {
-                if (((Label)myobject).InvokeRequired) ((Label)myobject).Invoke((MethodInvoker)(() => ((Label)myobject).Text += text));
-                else ((Label)myobject).Text += text;
-            }
-            else if (myobject is TextBox)
-            {
-                if (((TextBox)myobject).InvokeRequired) ((TextBox)myobject).Invoke((MethodInvoker)(() => ((TextBox)myobject).Text += text));
-                else ((TextBox)myobject).Text += text;
-            }
-            else if (myobject is Button)
-            {
-                if (((Button)myobject).InvokeRequired) ((Button)myobject).Invoke((MethodInvoker)(() => ((Button)myobject).Text += text));
-                else ((Button)myobject).Text += text;
-            }
-            else if (myobject is RichTextBox)
-            {
-                if (((RichTextBox)myobject).InvokeRequired) ((RichTextBox)myobject).Invoke((MethodInvoker)(() => ((RichTextBox)myobject).Text += text));
-                else ((RichTextBox)myobject).Text += text;
+                case Label label:
+                    if (label.InvokeRequired) label.Invoke(() => label.Text += text);
+                    else label.Text += text;
+                    break;
+                case TextBox textBox:
+                    if (textBox.InvokeRequired) textBox.Invoke(() => textBox.Text += text);
+                    else textBox.Text += text;
+                    break;
+                case Button button:
+                    if (button.InvokeRequired) button.Invoke(() => button.Text += text);
+                    else button.Text += text;
+                    break;
+                case RichTextBox richTextBox:
+                    if (richTextBox.InvokeRequired) richTextBox.Invoke(() => richTextBox.Text += text);
+                    else richTextBox.Text += text;
+                    break;
             }
         }
 
-    }
+	}
 }
